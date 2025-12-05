@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 
 type Language = 'lua' | 'luau' | 'cpp' | 'java' | 'python';
 type UILanguage = 'ru' | 'en';
-type CodePurpose = 'roblox-studio' | 'roblox-exploit' | 'minecraft-exploit' | 'blackrussia-exploit' | 'learn' | 'python-learn' | 'python-exploit';
+type CodePurpose = 'roblox-studio' | 'roblox-exploit' | 'minecraft-exploit' | 'blackrussia-exploit' | 'learn' | 'python-learn' | 'arizona-exploit';
 type GameMode = 'mm2' | 'arsenal' | 'phantom-forces' | 'blackrussia' | 'other';
 
 interface CodeEditorViewProps {
@@ -229,6 +229,15 @@ const CodeEditorView = ({
               <Icon name="Save" className="mr-2" size={18} />
               {t.save}
             </Button>
+            
+            <Button 
+              onClick={() => window.open('https://www.AiHelpLuaPython.com', '_blank')}
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            >
+              <Icon name="MessageCircle" className="mr-2" size={18} />
+              {t.chatSupport}
+            </Button>
           </div>
         </div>
       </header>
@@ -360,7 +369,79 @@ const CodeEditorView = ({
                     </Button>
                   )}
                   
-                  {(purpose === 'learn' || purpose === 'python-learn') && (
+                  {purpose === 'arizona-exploit' && (
+                    <Button
+                      onClick={() => insertCodeExample(codeExamples['python-arizona-esp'])}
+                      variant="outline"
+                      className="w-full justify-start text-left h-auto py-3"
+                    >
+                      <div>
+                        <div className="font-semibold flex items-center gap-2">
+                          <Icon name="Eye" size={16} />
+                          {t.espTutorial} Python
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Arizona RP
+                        </div>
+                      </div>
+                    </Button>
+                  )}
+                  
+                  {purpose === 'learn' && selectedLang === 'lua' && (
+                    <Button
+                      onClick={() => insertCodeExample(codeExamples['lua-basics'])}
+                      variant="outline"
+                      className="w-full justify-start text-left h-auto py-3"
+                    >
+                      <div>
+                        <div className="font-semibold flex items-center gap-2">
+                          <Icon name="Code" size={16} />
+                          Основы Lua
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Примеры кода
+                        </div>
+                      </div>
+                    </Button>
+                  )}
+                  
+                  {purpose === 'learn' && selectedLang === 'cpp' && (
+                    <Button
+                      onClick={() => insertCodeExample(codeExamples['cpp-basics'])}
+                      variant="outline"
+                      className="w-full justify-start text-left h-auto py-3"
+                    >
+                      <div>
+                        <div className="font-semibold flex items-center gap-2">
+                          <Icon name="Code" size={16} />
+                          Основы C++
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Примеры кода
+                        </div>
+                      </div>
+                    </Button>
+                  )}
+                  
+                  {purpose === 'learn' && selectedLang === 'java' && (
+                    <Button
+                      onClick={() => insertCodeExample(codeExamples['java-basics'])}
+                      variant="outline"
+                      className="w-full justify-start text-left h-auto py-3"
+                    >
+                      <div>
+                        <div className="font-semibold flex items-center gap-2">
+                          <Icon name="Code" size={16} />
+                          Основы Java
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Примеры кода
+                        </div>
+                      </div>
+                    </Button>
+                  )}
+                  
+                  {purpose === 'python-learn' && (
                     <Button
                       onClick={() => insertCodeExample(codeExamples['python-basic'])}
                       variant="outline"
@@ -369,7 +450,7 @@ const CodeEditorView = ({
                       <div>
                         <div className="font-semibold flex items-center gap-2">
                           <Icon name="Code" size={16} />
-                          Основы {t[selectedLang]}
+                          Основы Python
                         </div>
                         <div className="text-xs text-muted-foreground mt-1">
                           Примеры кода

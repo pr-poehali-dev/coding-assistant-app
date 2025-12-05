@@ -6,7 +6,7 @@ import CodeEditorView from '@/components/CodeEditorView';
 
 type Language = 'lua' | 'luau' | 'cpp' | 'java' | 'python';
 type UILanguage = 'ru' | 'en';
-type CodePurpose = 'roblox-studio' | 'roblox-exploit' | 'minecraft-exploit' | 'blackrussia-exploit' | 'learn' | 'python-learn' | 'python-exploit';
+type CodePurpose = 'roblox-studio' | 'roblox-exploit' | 'minecraft-exploit' | 'blackrussia-exploit' | 'learn' | 'python-learn' | 'arizona-exploit';
 type GameMode = 'mm2' | 'arsenal' | 'phantom-forces' | 'blackrussia' | 'other';
 
 const translations = {
@@ -31,7 +31,9 @@ const translations = {
     robloxExploit: 'Эксплойт для Roblox',
     minecraftExploit: 'Эксплойт для Minecraft',
     blackrussiaExploit: 'Эксплойт для Black Russia',
+    arizonaExploit: 'Эксплойт для Arizona RP',
     learn: 'Изучение',
+    chatSupport: 'Чат поддержки',
     interfaceLanguage: 'Язык интерфейса',
     russian: 'Русский',
     english: 'English',
@@ -75,7 +77,9 @@ const translations = {
     robloxExploit: 'Roblox Exploit',
     minecraftExploit: 'Minecraft Exploit',
     blackrussiaExploit: 'Black Russia Exploit',
+    arizonaExploit: 'Arizona RP Exploit',
     learn: 'Learn',
+    chatSupport: 'Chat Support',
     interfaceLanguage: 'Interface Language',
     russian: 'Русский',
     english: 'English',
@@ -258,6 +262,169 @@ def calculate_sum(a, b):
 
 result = calculate_sum(10, 20)
 print(f"Sum: {result}")`,
+
+  'python-arizona-esp': `# ESP для Arizona RP (Python)
+import win32gui
+import win32api
+import win32con
+from ctypes import *
+
+class Player:
+    def __init__(self, x, y, z, name):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.name = name
+
+class ArizonaESP:
+    def __init__(self):
+        self.hwnd = win32gui.FindWindow(None, "GTA:SA:MP")
+        self.players = []
+    
+    def get_players(self):
+        # Получение адреса списка игроков
+        base_addr = 0x00B6F5F0  # Базовый адрес SAMP
+        player_pool = base_addr + 0x21A0F8
+        
+        # Чтение памяти игроков
+        for i in range(1000):
+            player_ptr = self.read_memory(player_pool + i * 4)
+            if player_ptr:
+                x = self.read_float(player_ptr + 0x14)
+                y = self.read_float(player_ptr + 0x18)
+                z = self.read_float(player_ptr + 0x1C)
+                name = self.read_string(player_ptr + 0x28)
+                self.players.append(Player(x, y, z, name))
+    
+    def draw_esp(self):
+        hdc = win32gui.GetDC(self.hwnd)
+        for player in self.players:
+            screen_x, screen_y = self.world_to_screen(
+                player.x, player.y, player.z
+            )
+            # Рисуем бокс вокруг игрока
+            win32gui.Rectangle(hdc, 
+                screen_x - 20, screen_y - 40,
+                screen_x + 20, screen_y + 40)
+            # Выводим имя
+            win32gui.TextOut(hdc, screen_x, screen_y - 50, 
+                player.name, len(player.name))
+        win32gui.ReleaseDC(self.hwnd, hdc)
+
+esp = ArizonaESP()
+while True:
+    esp.get_players()
+    esp.draw_esp()`,
+
+  'lua-basics': `-- Основы Lua
+-- Переменные
+local name = "Lua"
+local age = 30
+local isActive = true
+
+-- Функции
+local function greet(person)
+    print("Привет, " .. person)
+end
+
+greet("Мир")
+
+-- Циклы
+for i = 1, 5 do
+    print("Итерация " .. i)
+end
+
+-- Таблицы
+local player = {
+    name = "Player1",
+    health = 100,
+    armor = 50
+}
+
+print(player.name .. " HP: " .. player.health)`,
+
+  'cpp-basics': `// Основы C++
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Функции
+void greet(string name) {
+    cout << "Привет, " << name << endl;
+}
+
+// Классы
+class Player {
+public:
+    string name;
+    int health;
+    
+    Player(string n, int h) : name(n), health(h) {}
+    
+    void showInfo() {
+        cout << name << " HP: " << health << endl;
+    }
+};
+
+int main() {
+    // Переменные
+    string name = "C++";
+    int age = 30;
+    
+    // Циклы
+    for (int i = 0; i < 5; i++) {
+        cout << "Iteration " << i << endl;
+    }
+    
+    // Использование класса
+    Player player("Player1", 100);
+    player.showInfo();
+    
+    return 0;
+}`,
+
+  'java-basics': `// Основы Java
+public class Main {
+    // Функции
+    public static void greet(String name) {
+        System.out.println("Привет, " + name);
+    }
+    
+    // Классы
+    static class Player {
+        String name;
+        int health;
+        
+        Player(String name, int health) {
+            this.name = name;
+            this.health = health;
+        }
+        
+        void showInfo() {
+            System.out.println(name + " HP: " + health);
+        }
+    }
+    
+    public static void main(String[] args) {
+        // Переменные
+        String name = "Java";
+        int age = 30;
+        boolean isActive = true;
+        
+        // Циклы
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Iteration " + i);
+        }
+        
+        // Использование класса
+        Player player = new Player("Player1", 100);
+        player.showInfo();
+        
+        greet("Мир");
+    }
+}`,
 };
 
 const luaKeywords = ['local', 'function', 'end', 'if', 'then', 'else', 'elseif', 'while', 'do', 'for', 'return', 'break', 'in', 'repeat', 'until', 'true', 'false', 'nil', 'and', 'or', 'not'];
